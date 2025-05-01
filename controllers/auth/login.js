@@ -49,12 +49,19 @@ const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    // Step 3: Generate JWT
+    // Step 3: Generate JWT & set cookie
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
 
-    res.status(200).json({ token, user: { id: user.id, email: user.email } });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 15 * 60 * 1000, // 15 minutes
+      })
+      .redirect("/");
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Server error" });

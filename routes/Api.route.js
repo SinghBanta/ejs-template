@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const axios = require("axios");
 const apiRoutes = require("./api/index");
 
 router.use("/api", apiRoutes);
@@ -14,18 +14,34 @@ router.get("/login", (req, res) => {
 
 // GET register page
 router.get("/register", (req, res) => {
-  res.render("register", {
-    error: null,
-    RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
-  });
+  res.render("register");
 });
 
 // GET profile page
-router.get("/", (req, res) => {
-  res.render("index", {
-    error: null,
-    RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
-  });
+router.get("/", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.redirect("/login");
+    }
+
+    // 2) forward it as a Bearer token in Authorization header
+    const response = await axios.get(
+      `${process.env.BASE_URL}/api/user/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    res.render("index", { user: response.data });
+  } catch (err) {
+    console.error("Failed to fetch profile:", err);
+    res.status(500).render("error", { message: "Could not load profile" });
+  }
 });
 
 module.exports = router;

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="/css/register.css" />
+  </head>
+
+  <body>
+    <form class="form" action="/api/auth/login" method="POST">
+      <span class="input-span">
+        <label for="email" class="label">Email</label>
+        <input type="email" name="email" id="email" required />
+      </span>
+      <span class="input-span">
+        <label for="password" class="label">Password</label>
+        <input type="password" name="password" id="password" required />
+      </span>
+      <div class="g-recaptcha" data-sitekey="<%= RECAPTCHA_SITE_KEY %>"></div>
+      <button class="submit" type="submit">Submit</button>
+      <span class="span"
+        >Don't have an account? <a href="/register">Register</a></span
+      >
+    </form>
+  </body>
+</html>

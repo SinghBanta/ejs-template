@@ -5,6 +5,11 @@ const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
+    if (password.length < 8) {
+      req.flash("message", "Password must be at least 8 characters long.");
+      return res.redirect("/register");
+    }
+
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);

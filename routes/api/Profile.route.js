@@ -1,5 +1,5 @@
 const profile = require("../../controllers/user/profile");
-const userMiddleware = require("../../middleware");
+const userMiddleware = require("../../middlewares/middleware");
 
 const router = require("express").Router();
 

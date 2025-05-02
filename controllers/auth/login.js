@@ -29,6 +29,7 @@ const login = async (req, res) => {
 
     if (!success) {
       req.flash("message", "Invalid reCAPTCHA. Please try again.");
+      return res.redirect("/login");
     }
 
     // Step 2: Check user in DB

@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const formatDate = require("./utils");
+const flash = require("connect-flash");
+const session = require("express-session");
 
 dotenv.config();
 
@@ -12,6 +14,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(flash());
+
+// Make flash messages available to EJS views
+app.use((req, res, next) => {
+  res.locals.message = req.flash("message");
+  next();
+});
 
 // Set EJS as templating engine
 app.set("view engine", "ejs");

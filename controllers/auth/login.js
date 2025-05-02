@@ -28,9 +28,7 @@ const login = async (req, res) => {
     const { success, "error-codes": errorCodes } = recaptchaRes.data;
 
     if (!success) {
-      return res
-        .status(400)
-        .json({ error: "Invalid reCAPTCHA. Please try again.", errorCodes });
+      req.flash("message", "Invalid reCAPTCHA. Please try again.");
     }
 
     // Step 2: Check user in DB
@@ -39,14 +37,15 @@ const login = async (req, res) => {
     const result = await pool.query(query, values);
 
     if (result.rowCount === 0) {
-      return res.status(400).json({ error: "User not found" });
+      return req.flash("message", "User not found!");
     }
 
     const user = result.rows[0];
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      req.flash("message", "Invalid credentials. Please try again.");
+      return res.redirect("/login");
     }
 
     // Step 3: Generate JWT & set cookie

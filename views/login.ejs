@@ -22,5 +22,14 @@
         >Don't have an account? <a href="/register">Register</a></span
       >
     </form>
+    <% if (message && message.length > 0) { %>
+    <div class="flash-message" id="flash-message"><%= message[0] %></div>
+    <script>
+      setTimeout(() => {
+        const flash = document.getElementById("flash-message");
+        if (flash) flash.style.display = "none";
+      }, 3000);
+    </script>
+    <% } %>
   </body>
 </html>

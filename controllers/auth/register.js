@@ -16,9 +16,10 @@ const register = async (req, res) => {
     const result = await pool.query(query, values);
 
     if (result.rowCount === 0) {
-      return res.status(400).json({ error: "User registration failed" });
+      return req.flash("message", "User registration failed!");
     }
 
+    req.flash("message", "Registration successful! Please log in.");
     res.redirect("/login");
   } catch (err) {
     console.error("Error in register:", err);

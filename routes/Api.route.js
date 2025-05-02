@@ -52,6 +52,8 @@ router.get("/logout", (req, res) => {
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
   });
+
+  req.flash("message", "Logged out successfully!");
   res.redirect("/login");
 });
 

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const axios = require("axios");
 const apiRoutes = require("./api/index");
+require("dotenv").config();
 
 router.use("/api", apiRoutes);
 
@@ -42,6 +43,16 @@ router.get("/", async (req, res) => {
     console.error("Failed to fetch profile:", err);
     res.status(500).render("error", { message: "Could not load profile" });
   }
+});
+
+// GET logout route
+router.get("/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  res.redirect("/login");
 });
 
 module.exports = router;

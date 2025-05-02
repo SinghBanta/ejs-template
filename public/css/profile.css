@@ -28,6 +28,8 @@ body {
     position: absolute;
     bottom: 1em;
     right: 2em;
+    width:28px;
+    height:28px;
   }
   
   .chip {
@@ -145,4 +147,17 @@ body {
   .flip-card-front {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
     background-color: #171717;
+  }
+
+  .logoutButton{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
   }

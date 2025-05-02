@@ -68,14 +68,14 @@ Visit `http://localhost:3000` to start using the application.
 
 ## 🔌 API Endpoints Overview
 
-BASE_API=/api/auth
+BASE_API=/api
 
-| Method | Endpoint    | Description                                          | Protected | reCAPTCHA |
-| ------ | ----------- | ---------------------------------------------------- | --------- | --------- |
-| POST   | `/register` | Handles user registration with validations           | ❌        | ❌        |
-| POST   | `/login`    | Authenticates user, validates reCAPTCHA & issues JWT | ❌        | ✅        |
-| GET    | `/profile`  | Renders user profile; requires valid JWT             | ✅        | ❌        |
-| GET    | `/logout`   | Logs out user by clearing JWT                        | ✅        | ❌        |
+| Method | Endpoint         | Description                                          | Protected | reCAPTCHA |
+| ------ | ---------------- | ---------------------------------------------------- | --------- | --------- |
+| POST   | `/auth/register` | Handles user registration with validations           | ❌        | ❌        |
+| POST   | `/auth/login`    | Authenticates user, validates reCAPTCHA & issues JWT | ❌        | ✅        |
+| GET    | `/user/profile`  | Renders user profile; requires valid JWT             | ✅        | ❌        |
+| GET    | `/auth/logout`   | Logs out user by clearing JWT                        | ✅        | ❌        |
 
 ---
 
